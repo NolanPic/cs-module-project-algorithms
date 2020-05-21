@@ -2,7 +2,35 @@
 Input: a List of integers
 Returns: a List of integers
 '''
+# runs in O(n)
 def moving_zeroes(arr):
+    # the beginning of the array
+    left = 0
+    # the end of the array
+    right = len(arr) -1
+    # while the left and right sides have not met,
+    while left <= right:
+        # if the left is a zero and the right is not:
+        if arr[left] == 0 and arr[right] != 0:
+            # swap
+            arr[left], arr[right] = arr[right], arr[left]
+            # narrow down the array, from both sides in
+            left +=1
+            right -=1
+        else:
+            # keep the left from moving on unless
+            # it is not a zero, and the right from
+            # moving on unless it IS zero--this is
+            # the same effect as moving_zeroes_old
+            # has when it decrements i by i to 
+            # move back
+            if arr[left] != 0:
+                left += 1
+            if arr[right] == 0:
+                right -=1
+    return arr
+
+def moving_zeroes_old(arr):
     # loop thru the array, and while the value on the current
     # value's LEFT is zero, swap
     
@@ -48,4 +76,5 @@ if __name__ == '__main__':
 
     print('is it an infinate loop?')
     print(f"The resulting of moving_zeroes is: {moving_zeroes(arr)}")
+    print(f"The resulting of moving_zeroes_ntime is: {moving_zeros_ntime(arr)}")
     print("No, you're all good!")
